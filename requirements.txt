@@ -1,0 +1,24 @@
+# Core deep-learning stack.
+# Install torch separately first with the right CUDA wheel, e.g.
+#   pip install torch --index-url https://download.pytorch.org/whl/cu124
+torch>=2.0.0
+
+# GenQC / diffusion training & inference
+huggingface-hub>=0.29.3
+omegaconf>=2.3.0
+open-clip-torch>=2.31.0
+numpy>=2.2.4
+scipy>=1.15.2
+pandas>=2.2.3
+joblib>=1.4.2
+tqdm>=4.67.1
+matplotlib>=3.10.1
+
+# Quantum circuit simulation
+qiskit>=1.4.2
+qiskit-aer>=0.17.0
+pylatexenc>=2.10
+
+# Jupyter notebooks
+ipykernel>=6.29.5
+ipywidgets>=8.1.5

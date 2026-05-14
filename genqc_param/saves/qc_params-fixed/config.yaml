@@ -1,0 +1,101 @@
+target: genQC.pipeline.diffusion_pipeline_special.DiffusionPipeline_Compilation
+save_datetime: 07/27/2025 11:58:19
+params:
+  scheduler:
+    target: genQC.scheduler.scheduler_ddim.DDIMScheduler
+    params:
+      device: cuda
+      num_train_timesteps: 1000
+      beta_start: 0.0001
+      beta_end: 0.02
+      beta_schedule: cos_alpha
+      input_perturbation: 0.1
+      eta: 1
+  model:
+    target: genQC.models.unet_qc.QC_Compilation_UNet
+    save_path: ./saves/qc_params-fixed/model.pt
+    save_datetime: 07/27/2025 11:58:19
+    params:
+      model_features:
+      - 128
+      - 128
+      - 256
+      clr_dim: 8
+      num_clrs: 8
+      t_emb_size: 256
+      cond_emb_size: 512
+      num_heads:
+      - 8
+      - 8
+      - 2
+      num_res_blocks:
+      - 2
+      - 2
+      - 4
+      transformer_depths:
+      - 1
+      - 2
+      - 1
+      unitary_encoder_config:
+        cond_emb_size: 512
+        model_features:
+        - 2
+        - 32
+        - 64
+        - 512
+        num_heads: 8
+        transformer_depths:
+        - 2
+        - 2
+        dropout: 0.2
+  text_encoder:
+    target: genQC.models.frozen_open_clip.CachedFrozenOpenCLIPEmbedder
+    save_path: null
+    save_datetime: 07/27/2025 11:58:19
+    params:
+      arch: ViT-B-32
+      version: laion2b_s34b_b79k
+      device: cpu
+      max_length: 77
+      freeze: true
+      layer: penultimate
+  device: cuda
+  enable_guidance_train: true
+  guidance_train_p: 0.1
+  cached_text_enc: true
+  add_config:
+    dataset:
+      target: genQC.dataset.mixed_cached_qc_dataset.Mixed_Cached_OpenClip_Dataset
+      device: cuda
+      comment: 'Generated with ''from_datasets'' with 1 datasets. Qubits: [3].'
+      save_path: null
+      save_datetime: 07/25/2025 12:41:59
+      params:
+        store_dict:
+          x: tensor
+          'y': numpy
+          params: tensor
+          U: tensor
+          z: tensor
+        optimized: false
+        dataset_to_gpu: true
+        random_samples: 3000000
+        num_of_qubits: 3
+        min_gates: 2
+        max_gates: 32
+        gate_pool:
+        - rx
+        - ry
+        - rxx
+        pad_constant: 7
+        collate_fn: cut_padding_collate_fn_compilation_params
+        bucket_batch_size: -1
+        num_down_scales: 3
+fit:
+  num_epochs: 30
+  batch_size: 16
+  lr: 0.0003
+  lr_sched: torch.optim.lr_scheduler.OneCycleLR
+  optimizer: torch.optim.adam.Adam
+  dataset_size_train: 149594
+  dataset_size_valid: 16622

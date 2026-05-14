@@ -1,0 +1,35 @@
+[project]
+name = "genqc-param"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "huggingface-hub>=0.29.3",
+    "ipykernel>=6.29.5",
+    "ipywidgets>=8.1.5",
+    "joblib>=1.4.2",
+    "matplotlib>=3.10.1",
+    "numpy>=2.2.4",
+    "omegaconf>=2.3.0",
+    "open-clip-torch>=2.31.0",
+    "pandas>=2.2.3",
+    "pip>=25.0.1",
+    "qiskit>=1.4.2",
+    "scipy>=1.15.2",
+    "tqdm>=4.67.1",
+    "torch>=2.0.0",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cu124", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+torchvision = [
+  { index = "pytorch-cu124", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
