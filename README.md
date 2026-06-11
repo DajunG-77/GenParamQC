@@ -98,6 +98,9 @@ If you find this code or the method useful, please cite:
 
 ---
 
-<!-- ## License
- -->
+## License
 
+Copyright 2026 Dajun Guo, Chukun Hu, and Xiaolu Su.
+
+Licensed under the [Apache License, Version 2.0](LICENSE). This repository
+includes code derived from [genQC](https://github.com/FlorianFuerrutter/genQC).
